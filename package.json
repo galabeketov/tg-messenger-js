@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "Lightweight package for sending messages via the Telegram Bot API",
   "main": "index.js",
-  "homepage": "https://github.com/galabeketov/tg-messenger-js",
+  "homepage": "https://tg.messanger.beketov.uz",
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
   },

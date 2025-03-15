@@ -1,0 +1,19 @@
+{
+  "name": "tg-messenger-js",
+  "version": "1.0.0",
+  "description": "Lightweight package for sending messages via the Telegram Bot API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "api",
+    "lightweight",
+    "react-telegram-messenger",
+    "telegram-messenger"
+  ],
+  "author": "Beketov Galimjan",
+  "license": "MIT"
+}

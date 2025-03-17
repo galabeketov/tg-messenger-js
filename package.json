@@ -1,6 +1,6 @@
 {
   "name": "tg-messenger-js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Lightweight package for sending messages via the Telegram Bot API",
   "main": "index.js",
   "homepage": "https://tg.messanger.beketov.uz",

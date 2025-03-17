@@ -20,6 +20,12 @@ class TelegramBot {
    * @param {string} text - Текст сообщения
    * @returns {Promise<object>} Результат ответа от Telegram API
    */
+
+  log(level, message) {
+    const timestamp = new Date().toISOString();
+    console.log(`${this.logStyles[level]} [${timestamp}] ${message}`);
+  }
+
   sendMessage(chatId, text) {
     if (!chatId || !text) {
       throw new Error("chatId and text are required");

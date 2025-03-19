@@ -23,7 +23,9 @@ class TelegramBot {
 
   log(level, message) {
     const timestamp = new Date().toISOString();
-    console.log(`${this.logStyles[level]} [${timestamp}] ${message}`);
+    const logLevel = this.logTypes.includes(level) ? level : "log";
+
+    console[logLevel](`[${timestamp}] [${logLevel.toUpperCase()}] ${message}`);
   }
 
   sendMessage(chatId, text) {

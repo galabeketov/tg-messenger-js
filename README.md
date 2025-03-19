@@ -65,6 +65,27 @@ bot
   .catch((error) => console.error("Failed to send message:", error));
 ```
 
+## Logging
+
+The package includes a built-in logger that supports different log levels. By default it uses the following console methods:
+
+- `log` (default)
+- `error`
+- `warn`
+- `info`
+- `debug`
+
+### Using the logger
+
+```js
+// Log with different levels
+bot.log('info', 'Information message');
+bot.log('error', 'Error message');
+bot.log('warn', 'Warning message');
+
+// Default log (uses console.log)
+bot.log('custom', 'Regular message');
+
 ## License
 
 MIT License
@@ -88,3 +109,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```

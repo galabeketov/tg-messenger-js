@@ -1,6 +1,6 @@
 {
   "name": "tg-messenger-js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Lightweight package for sending messages via the Telegram Bot API",
   "main": "index.js",
   "homepage": "https://tg.messanger.beketov.uz",
@@ -9,10 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/galabeketov/tg-messenger-js.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "url": "git+https://github.com/galabeketov/tg-messenger-js.git"
   },
   "keywords": [
     "telegram",

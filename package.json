@@ -5,7 +5,7 @@
   "main": "index.js",
   "homepage": "https://tg.messanger.beketov.uz",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
     "telegram-messenger"
   ],
   "author": "Beketov Galimjan",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }

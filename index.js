@@ -12,6 +12,7 @@ class TelegramBot {
     }
     this.token = token;
     this.apiUrl = `https://api.telegram.org/bot${this.token}`;
+    this.logTypes = ["info", "error", "warn", "log"];
   }
 
   /**
@@ -32,7 +33,7 @@ class TelegramBot {
     if (!chatId || !text) {
       throw new Error("chatId and text are required");
     }
-
+    this.log("info", `Sending message to chatId: ${chatId}`);
     const url = `${this.apiUrl}/sendMessage?chat_id=${encodeURIComponent(
       chatId
     )}&text=${encodeURIComponent(text)}`;

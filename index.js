@@ -12,6 +12,7 @@ class TelegramBot {
     }
     this.token = token;
     this.apiUrl = `https://api.telegram.org/bot${this.token}`;
+    this.logTypes = ["info", "error", "warn", "log"];
   }
 
   /**

@@ -6,9 +6,14 @@ jest.mock("https");
 describe("TelegramBot", () => {
   let bot;
   const token = "fake-token";
+  const chatId = "123";
+  const text = "Test message";
 
   beforeEach(() => {
+    jest.clearAllMocks();
     bot = new TelegramBot(token);
+    // Mock log method to prevent console output
+    jest.spyOn(bot, "log").mockImplementation(() => {});
   });
 
   describe("constructor", () => {
@@ -32,6 +37,24 @@ describe("TelegramBot", () => {
     it("throws an error if chatId or text is missing", () => {
       expect(() => bot.sendMessage(null, text)).toThrow();
       expect(() => bot.sendMessage(chatId, null)).toThrow();
+    });
+
+    it("rejects on network error", async () => {
+      const mockError = new Error("Network error");
+
+      https.get.mockImplementation(() => {
+        const req = {
+          on: (event, handler) => {
+            if (event === "error") {
+              // Simulate async error emission
+              setTimeout(() => handler(mockError), 0);
+            }
+          },
+        };
+        return req;
+      });
+
+      await expect(bot.sendMessage(chatId, text)).rejects.toThrow(mockError);
     });
 
     it("calls https.get with the correct URL", () => {

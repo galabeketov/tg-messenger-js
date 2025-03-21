@@ -8,6 +8,7 @@ class TelegramBot {
    */
   constructor(token) {
     if (!token) {
+      this.log("error", "Telegram bot token is required");
       throw new Error("Telegram bot token is required");
     }
     this.token = token;

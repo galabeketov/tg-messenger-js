@@ -1,90 +1,138 @@
 # tg-messenger-js
 
-A lightweight package for sending messages via the Telegram Bot API.
+Advanced Telegram Bot API wrapper for Node.js with rich features and flexible configuration.
+
+## Features
+
+- Send text messages with formatting
+- Send photos/documents from URLs
+- Create reply/inline keyboards
+- Formatting helpers for Markdown
+- Webhook configuration
+- Update polling
+- Custom logging
+- Detailed error handling
 
 ## Installation
 
-Install the package via npm:
-
-```sh
+```bash
 npm install tg-messenger-js
-```
 
-or via yarn:
 
-```sh
-yarn add tg-messenger-js
-```
 
-## Usage
-
-### Importing the module
-
-```js
 const TelegramBot = require("tg-messenger-js");
-```
-
-### Creating a bot instance
-
-Create an instance of the bot using your Telegram Bot API token:
-
-```js
 const bot = new TelegramBot("YOUR_BOT_TOKEN");
-```
 
-### Sending a message
+// Simple message
+bot.sendMessage("CHAT_ID", "Hello World!")
+  .then(console.log)
+  .catch(console.error);
 
-To send a message to a chat, use the `sendMessage` method:
 
-```js
-bot
-  .sendMessage("CHAT_ID", "Hello from tg-messenger-js!")
-  .then((response) => {
-    console.log("Message sent successfully:", response);
-  })
-  .catch((error) => {
-    console.error("Error sending message:", error);
-  });
-```
+// Using Markdown formatting
+const text = TelegramBot.format.bold("Important!") + " message";
+bot.sendMessage("CHAT_ID", text, { parse_mode: "MarkdownV2" });
 
-## Parameters
+// Using HTML formatting
+bot.sendMessage("CHAT_ID", "<b>Bold</b> text", { parse_mode: "HTML" });
 
-- `YOUR_BOT_TOKEN` – Your bot token, obtained from [BotFather](https://t.me/BotFather).
-- `CHAT_ID` – The ID of the chat where the message should be sent. It can be a user ID, group ID, or `@username`.
-- `text` – The message text.
 
-## Example
 
-```js
-const TelegramBot = require("tg-messenger-js");
-const bot = new TelegramBot("123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
-bot
-  .sendMessage(123456789, "Hello, world!")
-  .then((response) => console.log("Message sent:", response))
-  .catch((error) => console.error("Failed to send message:", error));
-```
+// Using Markdown formatting
+const text = TelegramBot.format.bold("Important!") + " message";
+bot.sendMessage("CHAT_ID", text, { parse_mode: "MarkdownV2" });
 
-## Logging
+// Using HTML formatting
+bot.sendMessage("CHAT_ID", "<b>Bold</b> text", { parse_mode: "HTML" });
 
-The package includes a built-in logger that supports different log levels. By default it uses the following console methods:
 
-- `log` (default)
-- `error`
-- `warn`
-- `info`
-- `debug`
+bot.sendPhoto("CHAT_ID", "https://example.com/photo.jpg", {
+  caption: "Beautiful scenery",
+  parse_mode: "MarkdownV2"
+});
 
-### Using the logger
 
-```js
-// Log with different levels
-bot.log('info', 'Information message');
-bot.log('error', 'Error message');
-bot.log('warn', 'Warning message');
 
-// Default log (uses console.log)
-bot.log('custom', 'Regular message');
+// Reply keyboard
+const replyMarkup = TelegramBot.keyboard.reply([
+  [{ text: "Yes" }, { text: "No" }]
+], { resize: true });
+
+// Inline keyboard
+const inlineMarkup = TelegramBot.keyboard.inline([
+  [{ text: "Visit", url: "https://example.com" }]
+]);
+
+bot.sendMessage("CHAT_ID", "Choose option:", { reply_markup: inlineMarkup });
+
+
+
+bot.setWebhook("https://your-domain.com/webhook", {
+  max_connections: 40
+});
+
+
+
+bot.startPolling((update) => {
+  console.log("Received update:", update);
+}, 5000); // Check every 5 seconds
+
+// To stop polling later
+bot.stopPolling();
+
+
+
+bot.startPolling((update) => {
+  console.log("Received update:", update);
+}, 5000); // Check every 5 seconds
+
+// To stop polling later
+bot.stopPolling();
+
+
+
+const bot = new TelegramBot("TOKEN", {
+  logging: true, // Enable/disable logs
+  logger: (level, message) => {
+    // Implement custom logging
+  }
+});
+
+
+
+API Reference
+Core Methods
+sendMessage(chatId, text, options)
+
+sendPhoto(chatId, photo, options)
+
+sendDocument(chatId, document, options)
+
+setWebhook(url, options)
+
+deleteWebhook()
+
+startPolling(callback, interval)
+
+stopPolling()
+
+Format Helpers
+format.bold(text)
+
+format.italic(text)
+
+format.code(text)
+
+format.pre(text)
+
+format.link(text, url)
+
+Keyboard Helpers
+keyboard.reply(buttons, options)
+
+keyboard.inline(buttons)
+
 
 ## License
 

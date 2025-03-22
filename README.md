@@ -1,160 +1,96 @@
 # tg-messenger-js
 
-Advanced Telegram Bot API wrapper for Node.js with rich features and flexible configuration.
+**Мощный клиент для Telegram Bot API**
 
-## Features
+![npm version](https://img.shields.io/npm/v/tg-messenger-js) ![npm downloads](https://img.shields.io/npm/dm/tg-messenger-js)
 
-- Send text messages with formatting
-- Send photos/documents from URLs
-- Create reply/inline keyboards
-- Formatting helpers for Markdown
-- Webhook configuration
-- Update polling
-- Custom logging
-- Detailed error handling
+## Основные возможности
 
-## Installation
+- 📨 Отправка текстовых сообщений
+- 🖼️ Отправка фото и документов
+- ⌨️ Создание кастомных клавиатур
+- 🔔 Настройка вебхуков
+- 📊 Поллинг обновлений
+- 📝 Форматирование Markdown/HTML
 
-```bash
+## Быстрый старт
+
+Установите пакет с помощью npm:
+
+```sh
 npm install tg-messenger-js
+```
 
+## Примеры использования
 
+### Отправка сообщения
 
+```js
 const TelegramBot = require("tg-messenger-js");
 const bot = new TelegramBot("YOUR_BOT_TOKEN");
 
-// Simple message
-bot.sendMessage("CHAT_ID", "Hello World!")
-  .then(console.log)
-  .catch(console.error);
-
-
-// Using Markdown formatting
-const text = TelegramBot.format.bold("Important!") + " message";
-bot.sendMessage("CHAT_ID", text, { parse_mode: "MarkdownV2" });
-
-// Using HTML formatting
-bot.sendMessage("CHAT_ID", "<b>Bold</b> text", { parse_mode: "HTML" });
-
-
-
-
-// Using Markdown formatting
-const text = TelegramBot.format.bold("Important!") + " message";
-bot.sendMessage("CHAT_ID", text, { parse_mode: "MarkdownV2" });
-
-// Using HTML formatting
-bot.sendMessage("CHAT_ID", "<b>Bold</b> text", { parse_mode: "HTML" });
-
-
-bot.sendPhoto("CHAT_ID", "https://example.com/photo.jpg", {
-  caption: "Beautiful scenery",
-  parse_mode: "MarkdownV2"
+bot.sendMessage("@channel_name", "Привет от tg-messenger-js!", {
+  parse_mode: "MarkdownV2",
+  disable_notification: true,
 });
+```
 
+### Отправка фото с клавиатурой
 
+```js
+const { keyboard } = TelegramBot;
 
-// Reply keyboard
-const replyMarkup = TelegramBot.keyboard.reply([
-  [{ text: "Yes" }, { text: "No" }]
-], { resize: true });
-
-// Inline keyboard
-const inlineMarkup = TelegramBot.keyboard.inline([
-  [{ text: "Visit", url: "https://example.com" }]
+const markup = keyboard.inline([
+  [{ text: "Открыть сайт", url: "https://example.com" }],
 ]);
 
-bot.sendMessage("CHAT_ID", "Choose option:", { reply_markup: inlineMarkup });
-
-
-
-bot.setWebhook("https://your-domain.com/webhook", {
-  max_connections: 40
+bot.sendPhoto("CHAT_ID", "photo.jpg", {
+  caption: "Выберите действие:",
+  reply_markup: markup,
 });
-
-
-
-bot.startPolling((update) => {
-  console.log("Received update:", update);
-}, 5000); // Check every 5 seconds
-
-// To stop polling later
-bot.stopPolling();
-
-
-
-bot.startPolling((update) => {
-  console.log("Received update:", update);
-}, 5000); // Check every 5 seconds
-
-// To stop polling later
-bot.stopPolling();
-
-
-
-const bot = new TelegramBot("TOKEN", {
-  logging: true, // Enable/disable logs
-  logger: (level, message) => {
-    // Implement custom logging
-  }
-});
-
-
-
-API Reference
-Core Methods
-sendMessage(chatId, text, options)
-
-sendPhoto(chatId, photo, options)
-
-sendDocument(chatId, document, options)
-
-setWebhook(url, options)
-
-deleteWebhook()
-
-startPolling(callback, interval)
-
-stopPolling()
-
-Format Helpers
-format.bold(text)
-
-format.italic(text)
-
-format.code(text)
-
-format.pre(text)
-
-format.link(text, url)
-
-Keyboard Helpers
-keyboard.reply(buttons, options)
-
-keyboard.inline(buttons)
-
-
-## License
-
-MIT License
-
-Copyright (c) 2025 [Beketov Galimjan]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 ```
+
+### Работа с вебхуками
+
+```js
+// Настройка вебхука
+bot.setWebhook("https://your-domain.com/webhook", {
+  max_connections: 40,
+});
+
+// Обработка обновлений
+app.post("/webhook", async (req, res) => {
+  const update = req.body;
+  // Ваша логика обработки
+});
+```
+
+## Документация
+
+### Основные методы
+
+- `sendMessage()`
+- `sendPhoto()`
+- `sendDocument()`
+- `setWebhook()`
+
+### Форматирование
+
+- `format.bold()`
+- `format.italic()`
+- `format.link()`
+
+### Клавиатуры
+
+- `keyboard.reply()`
+- `keyboard.inline()`
+
+## Ресурсы
+
+- 📚 [GitHub репозиторий](https://github.com/your-repo)
+- 📦 [npm пакет](https://www.npmjs.com/package/tg-messenger-js)
+- 📄 [Официальная документация API](https://core.telegram.org/bots/api)
+
+---
+
+MIT License © 2025 Beketov Galimjan

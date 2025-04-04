@@ -1,112 +1,85 @@
 # tg-messenger-js
 
-A lightweight package for sending messages via the Telegram Bot API.
+**🔥 Мощный и легковесный клиент для Telegram Bot API**
 
-## Installation
+![npm version](https://img.shields.io/npm/v/tg-messenger-js) ![npm downloads](https://img.shields.io/npm/dm/tg-messenger-js) ![Node.js](https://img.shields.io/badge/node-%3E%3D14-brightgreen) ![License](https://img.shields.io/github/license/your-repo/tg-messenger-js)
 
-Install the package via npm:
+## 🚀 Основные возможности
+
+- 📨 **Отправка сообщений** — текст, фото, документы и многое другое
+- ⌘ **Кастомные клавиатуры** — inline и reply клавиатуры
+- 🔔 **Вебхуки** — настройка и управление
+- 📊 **Поллинг обновлений** — автоматический опрос сервера
+- 📝 **Форматирование** — поддержка MarkdownV2 и HTML
+- 🌐 **Кроссплатформенность** — работает в Node.js и браузерах
+
+---
+
+## 📦 Установка
+
+Установите пакет через npm или yarn:
 
 ```sh
 npm install tg-messenger-js
-```
-
-or via yarn:
-
-```sh
+# или
 yarn add tg-messenger-js
 ```
 
-## Usage
+---
 
-### Importing the module
+## ⚡ Быстрый старт
 
-```js
-const TelegramBot = require("tg-messenger-js");
-```
-
-### Creating a bot instance
-
-Create an instance of the bot using your Telegram Bot API token:
+### 📩 Отправка сообщения
 
 ```js
-const bot = new TelegramBot("YOUR_BOT_TOKEN");
+const { Telegram } = require("tg-messenger-js");
+
+const bot = new Telegram.Bot("YOUR_BOT_TOKEN");
+
+bot.sendMessage("CHAT_ID", "Привет от tg-messenger-js!", {
+  parse_mode: "MarkdownV2",
+});
 ```
 
-### Sending a message
-
-To send a message to a chat, use the `sendMessage` method:
+### 🖼 Отправка фото с inline-клавиатурой
 
 ```js
-bot
-  .sendMessage("CHAT_ID", "Hello from tg-messenger-js!")
-  .then((response) => {
-    console.log("Message sent successfully:", response);
-  })
-  .catch((error) => {
-    console.error("Error sending message:", error);
-  });
+const { Telegram } = require("tg-messenger-js");
+
+const bot = new Telegram.Bot("YOUR_BOT_TOKEN");
+const { keyboard } = Telegram;
+
+const markup = keyboard.inline([
+  [{ text: "🔗 Открыть сайт", url: "https://example.com" }],
+]);
+
+bot.sendPhoto("CHAT_ID", "photo.jpg", {
+  caption: "Выберите действие:",
+  reply_markup: markup,
+});
 ```
 
-## Parameters
-
-- `YOUR_BOT_TOKEN` – Your bot token, obtained from [BotFather](https://t.me/BotFather).
-- `CHAT_ID` – The ID of the chat where the message should be sent. It can be a user ID, group ID, or `@username`.
-- `text` – The message text.
-
-## Example
+### 🌍 Работа с вебхуками
 
 ```js
-const TelegramBot = require("tg-messenger-js");
-const bot = new TelegramBot("123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+const express = require("express");
+const { Telegram } = require("tg-messenger-js");
 
-bot
-  .sendMessage(123456789, "Hello, world!")
-  .then((response) => console.log("Message sent:", response))
-  .catch((error) => console.error("Failed to send message:", error));
+const app = express();
+const bot = new Telegram.Bot("YOUR_BOT_TOKEN");
+
+app.use(express.json());
+
+app.post("/webhook", async (req, res) => {
+  const update = req.body;
+  // Логика обработки обновления
+  res.sendStatus(200);
+});
+
+// Настройка вебхука
+bot.setWebhook("https://your-domain.com/webhook");
 ```
 
-## Logging
+---
 
-The package includes a built-in logger that supports different log levels. By default it uses the following console methods:
-
-- `log` (default)
-- `error`
-- `warn`
-- `info`
-- `debug`
-
-### Using the logger
-
-```js
-// Log with different levels
-bot.log('info', 'Information message');
-bot.log('error', 'Error message');
-bot.log('warn', 'Warning message');
-
-// Default log (uses console.log)
-bot.log('custom', 'Regular message');
-
-## License
-
-MIT License
-
-Copyright (c) 2025 [Beketov Galimjan]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+## 📚 API документация
